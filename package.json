@@ -14,12 +14,142 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
+    "configuration": {
+      "type": "object",
+      "title": "Speech configuration",
+      "properties": {
+        "speech.voice": {
+          "type": "string",
+          "default": null,
+          "description": "Name of voice used to speak text."
+        },
+        "speech.speed": {
+          "type": "number",
+          "default": 1,
+          "description": "Speech rate speed multiplier."
+        },
+        "speech.substitutions": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "default": {
+            "_": " "
+          },
+          "description": "A dictionary of characters to replace with other characters before speaking. This can help with characters that text-to-speech reads in an unexpected way."
+        }
+      }
+    },
     "commands": [
       {
         "command": "csis-project.OpenTerminal",
-        "title": "csis project Open Terminal"
+        "title": "OpenTerminal"
+      },
+      {
+        "command": "csis-project.speakDocument",
+        "title": "Speak Document",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "csis-project.speakSelection",
+        "title": "Speak Selection",
+        "when": "editorTextFocus && editorHasSelection"
+      },
+      {
+        "command": "csis-project.AdjustPitch",
+        "title": "AdjustPitch"
+      },
+      {
+        "command": "csis-project.ChangeVoice",
+        "title": "ChangeVoice"
+      },
+      {
+        "command": "csis-project.ChangePlayBackRate",
+        "title": "ChangePlayBackRate"
+      },
+      {
+        "command": "csis-project.AdjustVolume",
+        "title": "AdjustVolume"
+      },
+      {
+        "command": "csis-project.ViewProblems",
+        "title": "ViewProblems"
+      },
+      {
+        "command": "csis-project.CloseTerminal",
+        "title": "CloseTerminal"
+      },
+      {
+        "command": "csis-project.ChangeTerminal",
+        "title": "ChangeTerminal"
+      },
+      {
+        "command": "csis-project.ReadTerminalParagraph",
+        "title": "ReadTerminalParagraph"
+      },
+      {
+        "command": "csis-project.ReadTerminalEntireOutput",
+        "title": "ReadTerminalEntireOutput"
+      },
+      {
+        "command": "csis-project.SearchTerminalResults",
+        "title": "SearchTerminalResults"
+      },
+      {
+        "command": "csis-project.ReadMethods",
+        "title": "ReadMethods"
+      },
+      {
+        "command": "csis-project.FindProperties",
+        "title": "FindProperties"
+      },
+      {
+        "command": "csis-project.FindFields",
+        "title": "FindFields"
+      },
+      {
+        "command": "csis-project.stopSpeaking",
+        "title": "stopSpeaking"
+      },
+      {
+        "command": "csis-project.ReadSelectedPart",
+        "title": "ReadSelectedPart"
+      },
+      {
+        "command": "csis-project.ReadCurrentLine",
+        "title": "ReadCurrentLine"
+      },
+      {
+        "command": "csis-project.stopSReadCurrentParagraphpeaking",
+        "title": "ReadCurrentParagraph"
+      },
+      {
+        "command": "csis-project.ReadCodeSnippets",
+        "title": "ReadCodeSnippets"
+      },
+      {
+        "command": "csis-project.EditorSearchString",
+        "title": "EditorSearchString"
       }
-    ]
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "csis-project.speakDocument",
+          "when": "!editorHasSelection",
+          "group": "8_speech"
+        },
+        {
+          "command": "csis-project.speakSelection",
+          "when": "editorHasSelection",
+          "group": "8_speech"
+        },
+        {
+          "command": "csis-project.stopSpeaking",
+          "group": "8_speech"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
@@ -43,6 +173,8 @@
     "typescript": "^4.7.2"
   },
   "dependencies": {
+    "node-powershell": "^5.0.1",
+    "powershell": "^2.3.2",
     "say": "^0.16.0"
   }
 }

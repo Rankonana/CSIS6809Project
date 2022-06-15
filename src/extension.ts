@@ -1,8 +1,6 @@
 import * as vscode from 'vscode';
 import * as say from 'say';
 
-
-
 //#region Constants
 const getVoice = (): string | undefined =>
     vscode.workspace.getConfiguration('speech').get<string>('voice');
@@ -94,8 +92,10 @@ export function activate(context: vscode.ExtensionContext) {
 						//Speak the command and execute
 						speakText(message.text);
 						vscode.window.showInformationMessage(message.text);
+
 						
-						
+						 
+							
 					}
 					
 					return;
@@ -107,6 +107,28 @@ export function activate(context: vscode.ExtensionContext) {
 
     })
   );
+
+  context.subscriptions.push(vscode.commands.registerTextEditorCommand('csis-project.speakDocument', (editor) => {
+	stopSpeaking();
+	if (!editor)
+	{
+		return;
+	}
+	speakDocument(editor);
+}));
+
+context.subscriptions.push(vscode.commands.registerTextEditorCommand('csis-project.speakSelection', (editor) => {
+	stopSpeaking();
+	if (!editor)
+	{
+		return;
+	}
+	speakCurrentSelection(editor);
+}));
+
+context.subscriptions.push(vscode.commands.registerCommand('helloworld.stopSpeaking', () => {
+	stopSpeaking();
+}));
 }
 
 function getTerminalWebviewContent() {
@@ -146,7 +168,7 @@ textarea {
 <body onload="init()">
 <h1>My Terminal</h1>
 	<textarea id="txtArea" rows="4" cols="50" placeholder="Enter command here" onKeyPress="enterpressalert(event, this)" ></textarea><br>
-	<button>Open Terminal</button><br>
+	<button>Open New Terminal Window</button><br>
 	<button>Close Terminal</button><br>
 	<button>Change Terminal</button><br>
 	<button>Read Terminal Paragraph</button><br>
@@ -189,3 +211,4 @@ textarea {
 	</body>
 </html>`;
 }
+
