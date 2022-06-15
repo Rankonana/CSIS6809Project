@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as say from 'say';
+import * as path from 'path';
 
 //#region Constants
 const getVoice = (): string | undefined =>
@@ -71,9 +72,20 @@ export function activate(context: vscode.ExtensionContext) {
           enableScripts: true
         }
       );
+		
+		const onDiskPath = vscode.Uri.file(
+			path.join(context.extensionPath, 'media', 'main.js')
+		);
+		const scriptUri = panel.webview.asWebviewUri(onDiskPath);
+
+		const onDiskPath1 = vscode.Uri.file(
+			path.join(context.extensionPath, 'media', 'vscode.css')
+		);
+		const stylesMainUri = panel.webview.asWebviewUri(onDiskPath1);
+
 
       // And set its HTML content
-      panel.webview.html = getTerminalWebviewContent();
+      panel.webview.html = getTerminalWebviewContent(panel.webview,scriptUri,stylesMainUri);
 
 	  panel.webview.onDidReceiveMessage(
 		message => {
@@ -91,10 +103,7 @@ export function activate(context: vscode.ExtensionContext) {
 					{
 						//Speak the command and execute
 						speakText(message.text);
-						vscode.window.showInformationMessage(message.text);
-
-						
-						 
+						vscode.window.showInformationMessage(message.text);						 
 							
 					}
 					
@@ -126,44 +135,27 @@ context.subscriptions.push(vscode.commands.registerTextEditorCommand('csis-proje
 	speakCurrentSelection(editor);
 }));
 
-context.subscriptions.push(vscode.commands.registerCommand('helloworld.stopSpeaking', () => {
+context.subscriptions.push(vscode.commands.registerCommand('csis-project.stopSpeaking', () => {
 	stopSpeaking();
 }));
 }
 
-function getTerminalWebviewContent() {
+function getTerminalWebviewContent(webview: vscode.Webview,scriptUri :vscode.Uri, stylesMainUri :vscode.Uri ) {
+
+
+
+
+	const nonce = getNonce();
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; img-src ${webview.cspSource} https:; script-src 'nonce-${nonce}';">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="${stylesMainUri}" rel="stylesheet">
     <title>My Terminal</title>
-	<style>
-      button {
-        display: inline-block;
-        background-color: #7b38d8;
-        border-radius: 10px;
-        border: 4px double #cccccc;
-        color: #eeeeee;
-        text-align: center;
-        font-size: 15px;
-        padding: 1px;
-        width: 200px;
-        cursor: pointer;
-        margin: 5px;       
-      }
-textarea {
-  width: 50%;
-  height: 150px;
-  padding: 12px 20px;
-  box-sizing: border-box;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  background-color: #f8f8f8;
-  font-size: 16px;
-  resize: none;
-}
-    </style>
+	
 </head>
 <body onload="init()">
 <h1>My Terminal</h1>
@@ -174,41 +166,19 @@ textarea {
 	<button>Read Terminal Paragraph</button><br>
 	<button>Read Terminal Entire Output</button><br>
 	<button>Search Terminal Results</button><br>
-
-
-
-<script>
-	const vscode = acquireVsCodeApi();
-
-	function init()
-	{
-		document.getElementById("txtArea").focus();
-		console.log('inside init');
-	}
-		
-	function enterpressalert(e, textarea) {
-		var code = (e.keyCode ? e.keyCode : e.which);
-		if (code == 13) 
-		{ 
-			vscode.postMessage({
-				command: 'alert',
-				text: document.getElementById('txtArea').value
-			  });
-			console.log(document.getElementById('txtArea').value + 'code is : ' + code);
-		}
-		else 
-		{
-			vscode.postMessage({
-				command: 'alert',
-				text: String.fromCharCode(code)
-			  });
-			console.log(String.fromCharCode(code) + 'code is: ' + code );
-			
-		}
-	}
-</script>
-
+	
+	<script nonce="${nonce}" src="${scriptUri}"></script>
 	</body>
 </html>`;
 }
+
+function getNonce() {
+	let text = '';
+	const possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	for (let i = 0; i < 32; i++) {
+		text += possible.charAt(Math.floor(Math.random() * possible.length));
+	}
+	return text;
+}
+
 
