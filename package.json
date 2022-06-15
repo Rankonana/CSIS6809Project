@@ -1,0 +1,48 @@
+{
+  "name": "csis-project",
+  "displayName": "CSIS6809 Project",
+  "description": "VSCode Extension for Visually Impaired Programmers",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.68.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:csis-project.OpenTerminal"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "csis-project.OpenTerminal",
+        "title": "csis project Open Terminal"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.68.0",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
+    "@vscode/test-electron": "^2.1.3",
+    "eslint": "^8.16.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.7.2"
+  },
+  "dependencies": {
+    "say": "^0.16.0"
+  }
+}
