@@ -1,70 +1,34 @@
-# csis-project README
+# CSIS PROJECT README
 
-This is the README for your extension "csis-project". After writing up a brief description, we recommend including the following sections.
+# Requirements
+1.	Node.js (LTS version) available at:
+https://nodejs.org/en/download/
+2.	VSCode available at: 
+https://code.visualstudio.com/download
+3.	Project Source code available at: 
+https://codeload.github.com/Rankonana/CSIS6809Project
 
-## Features
+# Usage
+### Usage Instructions
+1.	With VSCode open CSIS6809Project-main. 
+2.	With the Node.js command prompt, change the directory to be ‘CSIS6809Project-main’ and execute the following commands:
+-	```npm install```
+-	```npm install -g yo ```
+-	```npm install -g yo generator-code ```
+3.	Press F5 to run the project, another VSCode window titled “Extension Development Host” with the Extension installed will appear.
+4.	On the new window of VSCode, open a source code file.
+5.	Press Ctrl+Shift+P to open command palette.
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+### Available commands
+##### Filter my available commands by typing “csis:”: 
+- a)	csis: Speak Document
+- b)	csis: Speak Selection
+- c)	csis: Stop Speaking
 
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
-
-## Requirements
-
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
-
-## Extension Settings
-
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+# Folder Structure
+- CSIS6809Project-main\package.json
+    - Contains basic information about the Extension, the commands that are available.
+- CSIS6809Project-main\media
+    - Contains the JavaScript  and Cascading Style Sheets to be used by the html inside the extensions
+- CSIS6809Project-main\src\extension.ts
+    - Is the main file for the
