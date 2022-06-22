@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 import * as say from 'say';
 import * as path from 'path';
+import { Item } from './Item';
+import { settings, getSettingsWebviewContent,showMainMenuItems } from "./settingsMainMenu";
 
 //#region Constants
 const getVoice = (): string | undefined =>
@@ -35,10 +37,6 @@ const speakText = (text: string) => {
 
 const speakCurrentSelection = (editor: vscode.TextEditor) => {
     const selection = editor.selection;
-	
-
-
-
 	
     if (!selection)
     {
@@ -116,6 +114,49 @@ export function activate(context: vscode.ExtensionContext) {
 
     })
   );
+  context.subscriptions.push(vscode.commands.registerTextEditorCommand('csis-project.OpenSettings', (editor) => {
+	const items = [];
+	items.push(new Item("Pitch"," Change pitch"));
+	items.push(new Item("Voice","Change voice"));
+	items.push(new Item("Playback rate","Change Playback rate"));
+	items.push(new Item("Volume","Increase or decrease volume"));
+	items.push(new Item("Braille keyboard","Setting for Braille keyboard"));
+
+	showMainMenuItems(items,"placeholder");
+}));
+
+context.subscriptions.push(vscode.commands.registerCommand('csis-project.AdjustPitch', () => {
+	settings('Adjust Pitch Settings');
+	
+}));
+
+context.subscriptions.push(vscode.commands.registerCommand('csis-project.ChangeVoice', () => {
+
+	settings('Change Voice Settings');
+	
+}));
+
+context.subscriptions.push(vscode.commands.registerCommand('csis-project.ChangePlayBackRate', () => {
+
+	settings('Change PlayBackRate Settings');
+	
+}));
+
+context.subscriptions.push(vscode.commands.registerCommand('csis-project.AdjustVolume', () => {
+
+	settings('Adjust Volume Settings');
+	
+}));
+
+context.subscriptions.push(vscode.commands.registerCommand('csis-project.BrailleKeyboardSettings', () => {
+
+	settings('Braille Keyboard Settings Settings');
+	
+}));
+
+
+
+
 
   context.subscriptions.push(vscode.commands.registerTextEditorCommand('csis-project.speakDocument', (editor) => {
 	stopSpeaking();
@@ -138,20 +179,23 @@ context.subscriptions.push(vscode.commands.registerTextEditorCommand('csis-proje
 context.subscriptions.push(vscode.commands.registerCommand('csis-project.stopSpeaking', () => {
 	stopSpeaking();
 }));
+
+
+
+
 }
 
+
+
+	
+
 function getTerminalWebviewContent(webview: vscode.Webview,scriptUri :vscode.Uri, stylesMainUri :vscode.Uri ) {
-
-
-
-
-	const nonce = getNonce();
-  return `<!DOCTYPE html>
+const nonce = getNonce();
+return `<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src ${webview.cspSource}; img-src ${webview.cspSource} https:; script-src 'nonce-${nonce}';">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="${stylesMainUri}" rel="stylesheet">
     <title>My Terminal</title>
@@ -167,7 +211,7 @@ function getTerminalWebviewContent(webview: vscode.Webview,scriptUri :vscode.Uri
 	<button>Read Terminal Entire Output</button><br>
 	<button>Search Terminal Results</button><br>
 	
-	<script nonce="${nonce}" src="${scriptUri}"></script>
+	<script  src="${scriptUri}"></script>
 	</body>
 </html>`;
 }

@@ -9,8 +9,7 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onCommand:csis-project.OpenTerminal"
+  "activationEvents": ["*" 
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -43,93 +42,115 @@
     "commands": [
       {
         "command": "csis-project.OpenTerminal",
-        "title": "OpenTerminal"
+        "title": "Open Terminal",
+        "category": "csis"
+      },
+      {
+        "command": "csis-project.OpenSettings",
+        "title": "Open settings",
+        "category": "csis"
       },
       {
         "command": "csis-project.speakDocument",
         "title": "Speak Document",
+        "category": "csis",
         "when": "editorTextFocus"
       },
       {
         "command": "csis-project.speakSelection",
         "title": "Speak Selection",
+        "category": "csis",
         "when": "editorTextFocus && editorHasSelection"
       },
       {
         "command": "csis-project.AdjustPitch",
-        "title": "AdjustPitch"
+        "title": "Adjust Pitch",
+        "category": "csis"
       },
       {
         "command": "csis-project.ChangeVoice",
-        "title": "ChangeVoice"
+        "title": "Change Voice",
+        "category": "csis"
       },
       {
         "command": "csis-project.ChangePlayBackRate",
-        "title": "ChangePlayBackRate"
+        "title": "Change Playback Rate",
+        "category": "csis"
       },
       {
         "command": "csis-project.AdjustVolume",
-        "title": "AdjustVolume"
+        "title": "Adjust Volume",
+        "category": "csis"
+      },
+      {
+        "command": "csis-project.BrailleKeyboardSettings",
+        "title": "Adjust Volume",
+        "category": "csis"
       },
       {
         "command": "csis-project.ViewProblems",
-        "title": "ViewProblems"
+        "title": "View Problems",
+        "category": "csis"
       },
       {
         "command": "csis-project.CloseTerminal",
-        "title": "CloseTerminal"
+        "title": "Close Terminal",
+        "category": "csis"
       },
       {
         "command": "csis-project.ChangeTerminal",
-        "title": "ChangeTerminal"
+        "title": "Change Terminal",
+        "category": "csis"
       },
       {
         "command": "csis-project.ReadTerminalParagraph",
-        "title": "ReadTerminalParagraph"
+        "title": "Read Terminal Paragraph",
+        "category": "csis"
       },
       {
         "command": "csis-project.ReadTerminalEntireOutput",
-        "title": "ReadTerminalEntireOutput"
+        "title": "Read Terminal Entire Output",
+        "category": "csis"
       },
       {
         "command": "csis-project.SearchTerminalResults",
-        "title": "SearchTerminalResults"
+        "title": "Search Terminal Results",
+        "category": "csis"
       },
       {
         "command": "csis-project.ReadMethods",
-        "title": "ReadMethods"
+        "title": "Read Methods",
+        "category": "csis"
       },
       {
         "command": "csis-project.FindProperties",
-        "title": "FindProperties"
+        "title": "Find Properties",
+        "category": "csis"
       },
       {
         "command": "csis-project.FindFields",
-        "title": "FindFields"
+        "title": "Find Fields",
+        "category": "csis"
       },
       {
         "command": "csis-project.stopSpeaking",
-        "title": "stopSpeaking"
-      },
-      {
-        "command": "csis-project.ReadSelectedPart",
-        "title": "ReadSelectedPart"
+        "title": "Stop Speaking",
+        "category": "csis"
       },
       {
         "command": "csis-project.ReadCurrentLine",
-        "title": "ReadCurrentLine"
-      },
-      {
-        "command": "csis-project.stopSReadCurrentParagraphpeaking",
-        "title": "ReadCurrentParagraph"
+        "title": "Read Current Line",
+        "category": "csis"
       },
       {
         "command": "csis-project.ReadCodeSnippets",
-        "title": "ReadCodeSnippets"
+        "title": "Read Code Snippets",
+        "category": "csis"
       },
       {
         "command": "csis-project.EditorSearchString",
-        "title": "EditorSearchString"
+        "title": "Editor Search String",
+        "category": "csis"
       }
     ],
     "menus": {

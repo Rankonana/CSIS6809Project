@@ -1,4 +1,3 @@
-(function () {
     // @ts-ignore
     const vscode = acquireVsCodeApi();
 
@@ -9,7 +8,8 @@
 	}		
 
 	
-	function enterpressalert(e, textarea) {
+	function enterpressalert(e, textarea) 
+	{
 		var code = (e.keyCode ? e.keyCode : e.which);
 		if (code === 13) 
 		{ 
@@ -28,4 +28,4 @@
 			console.log(String.fromCharCode(code) + 'code is: ' + code );
 			
 		}
-	}}());
+	}
